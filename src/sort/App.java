@@ -11,5 +11,6 @@ public class App {
 		sort = new InsertSort();
 		sort.sort();
 		sort.print();
+		// test
 	}
 }
