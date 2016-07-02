@@ -16,18 +16,18 @@ public class ProfilingBeanPostProcessor implements BeanPostProcessor {
 	private Map<String, Object> map = new HashMap<String, Object>();
 
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		Class<?> clazz = bean.getClass();
-		if (clazz.isAnnotationPresent(Profile.class)) {
-			map.put(beanName, clazz);
+		Class<?> beanClass = bean.getClass();
+		if (beanClass.isAnnotationPresent(Profile.class)) {
+			map.put(beanName, beanClass);
 		}
 		return bean;
 		
 	}
 	
 	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException {
-		Class<?> clazz = (Class<?>) map.get(beanName);
-		if (clazz != null) {
-			return Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), new InvocationHandler() {
+		Class<?> beanClass = (Class<?>) map.get(beanName);
+		if (beanClass != null) {
+			return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
 				public Object invoke(Object obj, Method m, Object[] objects) throws Throwable {
 					System.out.println("Profiling...");
 					long start = System.nanoTime();
