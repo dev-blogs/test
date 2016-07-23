@@ -69,6 +69,17 @@
         <!-- Framework/Plugin versions -->
         <appfuse.version>3.5.1-SNAPSHOT</appfuse.version>
         <java.version>1.7</java.version>
+        
+        <jdbc.groupId>mysql</jdbc.groupId>
+		<jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+		<jdbc.version>5.1.27</jdbc.version>
+		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		<jdbc.url>
+		    <![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
+		</jdbc.url>
+		<jdbc.username>root</jdbc.username>
+		<jdbc.password></jdbc.password>
+		<jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
     </properties>
 
     <profiles>
