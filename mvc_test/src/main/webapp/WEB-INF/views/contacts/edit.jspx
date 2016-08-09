@@ -15,6 +15,22 @@
     <spring:message code="label_contact_description" var="labelContactDescription"/>
     <spring:message code="label_contact_photo" var="labelContactPhoto"/>
     
+    <script type="text/javascript">
+    	$(function() {
+    		$('#birthDate').datepicker({
+    			dateFormat: 'yy-mm-dd',
+    			changeYear: true
+    		});
+    		
+    		$('#contactDescription').ckeditor({
+   				toolbar : 'Basic',
+				uiColor : '#cccccc',
+				resize_enabled: true
+			});
+    	});
+    	CKEDITOR.replace('#contactDescription',{customConfig :'',width:'700px',height:'700px'});
+    </script>
+    
     <spring:eval expression="contact.id == null ? labelContactNew:labelContactUpdate" var="formTitle"/>
 
     <h1>${formTitle}</h1>
@@ -27,7 +43,7 @@
             <div id="message" class="${message.type}">${message.message}</div>
         </c:if>
 
-        <form:label path="firstName">
+        <form:label id="label_info" path="firstName">
             ${labelContactFirstName}* 
         </form:label>
         <form:input path="firstName" />
@@ -36,7 +52,7 @@
         </div>
         <p/>
 
-        <form:label path="lastName">
+        <form:label id="label_info" path="lastName">
             ${labelContactLastName}* 
         </form:label>
         <form:input path="lastName" />
@@ -45,7 +61,7 @@
         </div>
         <p/>    
 
-        <form:label path="birthDate">
+        <form:label id="label_info" path="birthDate">
             ${labelContactBirthDate}
         </form:label>
         <form:input path="birthDate" id="birthDate"/>    
@@ -54,22 +70,21 @@
         </div>        
         <p/>
         
-        <form:label path="description">
-            ${labelContactDescription}
-        </form:label>
-        <form:textarea cols="60" rows="8" path="description" id="contactDescription"/>
+        <form:label id="label_info" path="description">
+			${labelContactDescription}
+		</form:label>
+		<p id="description_field">
+        <form:textarea id="contactDescription" cols="60" rows="8" path="description"/>
         <div>
             <form:errors path="description" cssClass="error" />
         </div>        
-        <p/>            
+        </p>            
         
-        <label for="file">
+        <label id="label_info" for="file">
             ${labelContactPhoto}
         </label>
         <input name="file" type="file"/>
         <p/>          
-        
-        <form:hidden path="version" />
         
         <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
             <span class="ui-button-text">Save</span>

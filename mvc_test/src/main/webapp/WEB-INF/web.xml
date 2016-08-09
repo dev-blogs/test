@@ -8,6 +8,17 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/spring/root-context.xml</param-value>        
     </context-param>
+    
+    <!-- Spring Security Configuration -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!-- Spring MVC filters -->
     <filter>
@@ -61,9 +72,10 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
         </init-param>
+        <!-- Supporting of uploading files. Version of servlet must be 3.0 -->
         <load-on-startup>1</load-on-startup> 
         <multipart-config>
-            <max-file-size>5000000</max-file-size>
+            <max-file-size>10000000</max-file-size>
         </multipart-config>               
     </servlet>
         
