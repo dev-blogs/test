@@ -17,6 +17,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -100,7 +101,7 @@ public class ContactController {
 		uiModel.addAttribute("contact", contactService.findById(id));
 		return "contacts/update";
 	}
-	
+		
 	@RequestMapping(params = "form", method = RequestMethod.POST)
     public String create(@Valid Contact contact, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value="file", required=false) Part file) {
 		logger.info("Creating contact");
@@ -145,6 +146,7 @@ public class ContactController {
 		return contact.getPhoto();
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model uiModel) {
 		Contact contact = new Contact();
