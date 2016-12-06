@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"	
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<bean id="message" class="java.lang.String" c:_0="This is a configurable message"/>		
+	<bean id="messageProvider" class="com.devblogs.TestMessageProvider">
+		<constructor-arg index="0">
+			<ref bean="message"/>
+		</constructor-arg>
+	</bean>	
+		
+	<bean id="injectCollection" class="collections.CollectionInjection">
+		<property name="map">
+			<map>
+				<entry key="someValue">
+					<value>Test</value>
+				</entry>
+				<entry key="someBean">
+					<map>
+						<entry key="entry1">
+							<value>entry1</value>
+						</entry>
+						<entry key="entry2">
+							<ref local="messageProvider"/>
+						</entry>
+					</map>
+				</entry>
+			</map>			
+		</property>
+		<property name="props">
+			<props>
+				<prop key="firstName">Clarence</prop>
+				<prop key="secondName">Ho</prop>
+			</props>			
+		</property>
+		<property name="set">
+			<set>
+				<value>Test</value>
+				<ref local="messageProvider"/>
+			</set>
+		</property>
+		<property name="list">
+			<list>
+				<value>Test</value>
+				<ref local="messageProvider"/>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
