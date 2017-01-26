@@ -1,9 +1,11 @@
 package com.devblogs.websocket;
 
+import javax.websocket.ClientEndpoint;
 import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
 
+@ClientEndpoint
 public class WebsocketClientEndpoint extends Endpoint {
 
 	@Override

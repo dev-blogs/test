@@ -15,47 +15,47 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WebSocketHandlerNotification extends WebSocketAdapter {
-    private UUID uuid;
-    private String token;
-    
+	private UUID uuid;
+	private String token;
+
 	public WebSocketHandlerNotification() {
-    }
-	
+	}
+
 	@PostConstruct
-    public void init() {
-    	token = "ODYxZmQxMGMtMDA2Zi00YmJjLWJiN2EtNmU0MmIxZThmZmY5";
-    }
-	
+	public void init() {
+		token = "OTgyNTU1NWQtNTA2NC00OTUzLThjMTYtMWU4OTY4NDdjYTMw";
+	}
+
 	public UUID getUuid() {
-        return this.uuid;
-    }
+		return this.uuid;
+	}
 
-    public void openWebSocket(String url) throws Exception {
-        System.out.println("WEBSOCKET: open web socket for notification");
-        uuid = UUID.randomUUID();
-        URI wsUri = URI.create(url + uuid.toString());
-        connectWebSocket(wsUri);
-    }
-    
-    public void connectWebSocket(URI endpointURI) {
-        try {
-            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            container.setDefaultMaxSessionIdleTimeout(0);
+	public void openWebSocket(String url) throws Exception {
+		System.out.println("WEBSOCKET: open web socket for notification");
+		uuid = UUID.randomUUID();
+		URI wsUri = URI.create(url + uuid.toString());
+		connectWebSocket(wsUri);
+	}
 
-            final ClientEndpointConfig.Builder configBuilder = ClientEndpointConfig.Builder.create();
-            configBuilder.configurator(new ClientEndpointConfig.Configurator() {
-                @Override
-                public void beforeRequest(final Map<String, List<String>> headers) {
-                    headers.put("Authorization", Arrays.asList("Bearer " + token));
-                }
-            });
-            ClientEndpointConfig clientConfig = configBuilder.build();
+	public void connectWebSocket(URI endpointURI) {
+		try {
+			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+			container.setDefaultMaxSessionIdleTimeout(0);
 
-            Endpoint endpoint = new WebsocketClientEndpoint();
+			final ClientEndpointConfig.Builder configBuilder = ClientEndpointConfig.Builder.create();
+			configBuilder.configurator(new ClientEndpointConfig.Configurator() {
+				@Override
+				public void beforeRequest(final Map<String, List<String>> headers) {
+					headers.put("Authorization", Arrays.asList("Bearer " + token));
+				}
+			});
+			ClientEndpointConfig clientConfig = configBuilder.build();
 
-            container.connectToServer(endpoint, clientConfig, endpointURI);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			Endpoint endpoint = new WebsocketClientEndpoint();
+
+			container.connectToServer(endpoint, clientConfig, endpointURI);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

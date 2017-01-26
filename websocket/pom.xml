@@ -32,17 +32,27 @@
 		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>websocket-client</artifactId>
-			<version>9.2.5.v20141112</version>
+			<version>9.3.6.v20151106</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>websocket-server</artifactId>
 			<version>9.1.3.v20140225</version>
-		</dependency>
+		</dependency> -->		
 		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>javax-websocket-client-impl</artifactId>
-			<version>9.1.3.v20140225</version>
+			<version>9.3.6.v20151106</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-common</artifactId>
+			<version>9.3.6.v20151106</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.0</version>
 		</dependency>
 		
 		<dependency>
