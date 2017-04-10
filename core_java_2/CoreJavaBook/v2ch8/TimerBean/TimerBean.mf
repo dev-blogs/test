@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+
+Name: TimerBean.class
+Java-Bean: True

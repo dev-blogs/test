@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+
+Name: IntTextBean.class
+Java-Bean: True
+
+Name: RangeBean.class
+Java-Bean: True

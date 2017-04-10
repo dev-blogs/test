@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE gridbag SYSTEM "gridbag.dtd">
+<gridbag>
+  <row>
+    <cell anchor="EAST" weightx="0" weighty="0">
+      <bean>
+        <class>javax.swing.JLabel</class>
+        <property>
+          <name>text</name>
+          <value><string>Face: </string></value>
+        </property>
+      </bean>
+    </cell>
+    <cell fill="HORIZONTAL" weighty="0">
+      <bean id="face">
+        <class>javax.swing.JComboBox</class>
+      </bean>
+    </cell>
+    <cell gridheight="4" fill="BOTH">
+      <bean id="sample">
+        <class>javax.swing.JTextArea</class>
+        <property>
+          <name>text</name>
+          <value><string>The quick brown fox jumps over the lazy dog</string></value>
+        </property>
+        <property>
+          <name>editable</name>
+          <value><boolean>false</boolean></value>
+        </property>
+        <property>
+          <name>lineWrap</name>
+          <value><boolean>true</boolean></value>
+        </property>
+        <property>
+          <name>border</name>
+          <value>
+            <bean>
+              <class>javax.swing.border.EtchedBorder</class>
+            </bean>
+          </value>
+        </property>
+      </bean>
+    </cell>
+  </row>
+  <row>
+    <cell anchor="EAST" weightx="0" weighty="0">
+      <bean>
+        <class>javax.swing.JLabel</class>
+        <property>
+          <name>text</name>
+          <value><string>Size: </string></value>
+        </property>
+      </bean>
+    </cell>
+    <cell fill="HORIZONTAL" weighty="0">
+      <bean id="size">
+        <class>javax.swing.JComboBox</class>
+      </bean>
+    </cell>
+  </row>
+  <row>
+    <cell gridwidth="2" weightx="0" fill="NONE">
+      <bean id="bold">
+        <class>javax.swing.JCheckBox</class>
+        <property>
+          <name>text</name>
+          <value><string>Bold</string></value>
+        </property>
+      </bean>
+    </cell>
+  </row>
+  <row>
+    <cell gridwidth="2" weightx="0" fill="NONE">
+      <bean id="italic">
+        <class>javax.swing.JCheckBox</class>
+        <property>
+          <name>text</name>
+          <value><string>Italic</string></value>
+        </property>
+      </bean>
+    </cell>
+  </row>
+</gridbag>
+      
+      
