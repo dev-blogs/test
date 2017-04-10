@@ -11,8 +11,6 @@ import com.task.exceptions.DuplicateKeyException;
  *
  */
 public class ExternalSystem {
-	private static final int NUMBER_OF_THREADS = 8;
-	
 	private Map<Key, Thread> safeThreadMap = Collections.synchronizedMap(new HashMap<Key, Thread>());
 	private Object lock = new Object();
 	
@@ -27,15 +25,11 @@ public class ExternalSystem {
 		
 		synchronized (lock) {
 			currentThread = Thread.currentThread();
-			if (safeThreadMap.size() < NUMBER_OF_THREADS) {
-				Thread threadFromMap = safeThreadMap.get(key);
-				if (safeThreadMap.containsKey(key) && !threadFromMap.getName().equals(currentThread.getName())) {
-					throw new DuplicateKeyException();
-				}
-				safeThreadMap.put(key, currentThread);
-			} else {
-				return;
+			Thread threadFromMap = safeThreadMap.get(key);
+			if (safeThreadMap.containsKey(key) && !threadFromMap.getName().equals(currentThread.getName())) {
+				throw new DuplicateKeyException();
 			}
+			safeThreadMap.put(key, currentThread);
 		}
 		
 		// unsafe thread code. Key is used here
