@@ -9,6 +9,11 @@ public class App {
 		context.load("classpath:replace/replacement.xml");
 		context.refresh();
 		
+		// 249 20 job's machine
+		// 259 20 job's mac machine
+		// 285 25 kotik's machine
+		// 159 12 my machine
+		
 		ReplacementTarget replacementTarget = (ReplacementTarget) context.getBean("replacementTarget");
 		ReplacementTarget standardTarget = (ReplacementTarget) context.getBean("standardTarget");
 		

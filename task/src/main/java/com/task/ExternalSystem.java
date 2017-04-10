@@ -1,16 +1,29 @@
 package com.task;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.task.exceptions.DuplicateKeyException;
 
 public class ExternalSystem {
-	private List<Thread> threads = new ArrayList<Thread>();
+	private Map<Key, Thread> map = new HashMap<Key, Thread>();
+	private Object lock = new Object();
 	
 	public void process(Key key) {
-		Thread currentThread = Thread.currentThread();
-		if (threads.size() < 8) {
-			threads.add(currentThread);
-			System.out.println("Performes some logic by " + currentThread.getName() + " thread");
+		if (map.size() < 8) {
+			Thread currentThread = Thread.currentThread();
+			
+			Thread thread = map.get(key);
+			
+			if (map.containsKey(key) && !thread.getName().equals(currentThread.getName())) {
+				throw new DuplicateKeyException();
+			}
+			
+			map.put(key, currentThread);
+			
+			System.out.println("Performes some logic for key " + key + " by " + currentThread.getName() + " thread");
+			
+			map.remove(key);
 		}
 	}
 }

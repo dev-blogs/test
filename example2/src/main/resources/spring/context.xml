@@ -21,7 +21,8 @@
         <property name="xaDataSourceClassName"><value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value></property>
         <property name="xaProperties">
             <props>
-                <prop key="databaseName">testdb</prop>
+            	<prop key="url">jdbc:mysql://192.168.1.136:3306/testdb</prop>
+                <!--<prop key="databaseName">testdb</prop>-->
                 <prop key="user">root</prop>
                 <prop key="password">gromit</prop>
             </props>
@@ -34,7 +35,8 @@
         <property name="xaDataSourceClassName"><value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value></property>
         <property name="xaProperties">
             <props>
-                <prop key="databaseName">testdb1</prop>
+            	<prop key="url">jdbc:mysql://192.168.1.149:3306/testdb1</prop>
+                <!--<prop key="databaseName">testdb1</prop>-->
                 <prop key="user">root</prop>
                 <prop key="password">gromit</prop>
             </props>
@@ -50,33 +52,50 @@
         </property>
     </bean>
 
-    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
-        <!--<property name="propagationBehaviorName" value="PROPAGATION_NEVER"/>-->
-        <!-- <property name="readOnly" value="true"/> -->
+    <!-- Also use Atomikos UserTransactionImp, needed to configure Spring  --> 
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+        <property name="transactionTimeout"><value>300</value></property>
+    </bean>
+
+    <!-- Configure the Spring framework to use JTA transactions from Atomikos -->
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager"><ref bean="atomikosTransactionManager"  /></property>
+        <property name="userTransaction"><ref bean="atomikosUserTransaction"  /></property>
+    </bean>
+    
+    <!--<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="readOnly" value="true"/>
         <property name="timeout" value="30"/>
         <property name="transactionManager" ref="transactionManager"/>
-    </bean> 
- 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="emf"/>
-    </bean>
- 
-    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+    </bean>-->
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<bean id="emfBase" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" abstract="true">
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>        
         <property name="packagesToScan" value="com.devblogs.domain"/>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.transaction.factory_class">com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory</prop>
+                <prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>            
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">50</prop>
                 <prop key="hibernate.jdbc.batch_size">10</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>        
         </property>
-    </bean>    
+    </bean>
+    
+    <bean id="emfA" parent="emfBase">
+        <property name="dataSource" ref="dataSourceA" />
+    </bean>
+        
+    <bean id="emfB" parent="emfBase">
+        <property name="dataSource" ref="dataSourceB" />
+    </bean>
 
 	<context:component-scan base-package="com.devblogs.service.impl" />
 

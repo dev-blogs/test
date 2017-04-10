@@ -25,6 +25,7 @@ class MyThread implements Runnable {
 	}
 	
 	public void run() {
-		keyHandler.handle(new Key(Integer.toString(count)));
+		Key key = new Key("key " + Integer.toString(count));
+		keyHandler.handle(key);
 	}
 }
