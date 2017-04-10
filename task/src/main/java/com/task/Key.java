@@ -11,19 +11,17 @@ public class Key {
 		return data;
 	}
 
-	/**
-	 * hashCode is used for checking by contains() method in map
-	 */
 	@Override
 	public int hashCode() {
-		return data.hashCode();
+		return 3 * data.hashCode();
 	}
 
-	/**
-	 * equals is used for checking by contains() method in map
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		return super.equals(obj);
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Key otherKey = (Key) obj;
+		return data.equals(otherKey.data);
 	}
 }

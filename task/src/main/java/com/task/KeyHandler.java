@@ -1,9 +1,35 @@
 package com.task;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class KeyHandler {
 	private ExternalSystem externalSystem = new ExternalSystem();
+	private Map<Key, Thread> safeThreadMap = Collections.synchronizedMap(new HashMap<Key, Thread>());
+	private Object lock = new Object();
 
 	public void handle(Key key) {
-		externalSystem.process(key);
+		try {
+			synchronized (lock) {
+				Thread currentThread = Thread.currentThread();
+				Thread threadFromMap = safeThreadMap.get(key);
+				
+				while (safeThreadMap.containsKey(key) && threadFromMap.getId() != currentThread.getId()) {
+					lock.wait();
+				}
+				
+				safeThreadMap.put(key, currentThread);
+			}
+			
+			externalSystem.process(key);
+			
+			synchronized (lock) {
+				safeThreadMap.remove(key);
+				lock.notifyAll();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

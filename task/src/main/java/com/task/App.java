@@ -7,11 +7,11 @@ public class App {
 		
 		new Thread(myThread).start();
 		new Thread(myThread).start();
-		new Thread(myThread).start();
-		new Thread(myThread).start();
-		new Thread(myThread).start();
-		new Thread(myThread).start();
-		new Thread(myThread).start();
+		//new Thread(myThread).start();
+		//new Thread(myThread).start();
+		//new Thread(myThread).start();
+		//new Thread(myThread).start();
+		//new Thread(myThread).start();
 	}
 }
 
@@ -21,11 +21,11 @@ class MyThread implements Runnable {
 	
 	public MyThread(KeyHandler keyHandler) {
 		this.keyHandler = keyHandler;
-		count++;
 	}
 	
 	public void run() {
-		Key key = new Key("key " + Integer.toString(count));
+		//Key key = new Key("key" + count++);
+		Key key = new Key("key");
 		keyHandler.handle(key);
 	}
 }

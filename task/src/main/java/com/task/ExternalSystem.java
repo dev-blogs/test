@@ -1,29 +1,49 @@
 package com.task;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.task.exceptions.DuplicateKeyException;
 
+/**
+ * 
+ * @author zhenya
+ *
+ */
 public class ExternalSystem {
-	private Map<Key, Thread> map = new HashMap<Key, Thread>();
+	private static final int NUMBER_OF_THREADS = 8;
+	
+	private Map<Key, Thread> safeThreadMap = Collections.synchronizedMap(new HashMap<Key, Thread>());
 	private Object lock = new Object();
 	
-	public void process(Key key) {
-		if (map.size() < 8) {
-			Thread currentThread = Thread.currentThread();
-			
-			Thread thread = map.get(key);
-			
-			if (map.containsKey(key) && !thread.getName().equals(currentThread.getName())) {
-				throw new DuplicateKeyException();
+	/**
+	 * Method process() limits only 8 threads and generates DuplicateKeyException for identical keys
+	 * in threads which are performed in method
+	 * @param key
+	 * @throws InterruptedException
+	 */
+	public void process(Key key) throws InterruptedException {
+		Thread currentThread;
+		
+		synchronized (lock) {
+			currentThread = Thread.currentThread();
+			if (safeThreadMap.size() < NUMBER_OF_THREADS) {
+				Thread threadFromMap = safeThreadMap.get(key);
+				if (safeThreadMap.containsKey(key) && !threadFromMap.getName().equals(currentThread.getName())) {
+					throw new DuplicateKeyException();
+				}
+				safeThreadMap.put(key, currentThread);
+			} else {
+				return;
 			}
-			
-			map.put(key, currentThread);
-			
-			System.out.println("Performes some logic for key " + key + " by " + currentThread.getName() + " thread");
-			
-			map.remove(key);
+		}
+		
+		// unsafe thread code. Key is used here
+		System.out.println("Performes some logic for key " + key + " by " + currentThread.getName() + " thread");
+		Thread.sleep(100);
+		
+		synchronized (lock) {
+			safeThreadMap.remove(key);
 		}
 	}
 }
