@@ -15,7 +15,7 @@ public class ExternalSystem {
 	private Object lock = new Object();
 	
 	/**
-	 * Method process() limits only 8 threads and generates DuplicateKeyException for identical keys
+	 * Method process() throws DuplicateKeyException for identical keys
 	 * in threads which are performed in method
 	 * @param key
 	 * @throws InterruptedException
