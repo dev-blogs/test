@@ -1,13 +1,15 @@
 package com.task;
 
+import com.task.substitution.UnsafeKeyHandler;
+
 public class App {
 	public static void main(String[] args) {
-		KeyHandler keyHandler = new KeyHandler();
+		KeyHandler keyHandler = new UnsafeKeyHandler();
 		MyThread myThread = new MyThread(keyHandler);
 		
 		new Thread(myThread).start();
 		new Thread(myThread).start();
-		//new Thread(myThread).start();
+		new Thread(myThread).start();
 		//new Thread(myThread).start();
 		//new Thread(myThread).start();
 		//new Thread(myThread).start();
@@ -17,15 +19,14 @@ public class App {
 
 class MyThread implements Runnable {
 	private KeyHandler keyHandler;
-	private static int count = 0;
 	
 	public MyThread(KeyHandler keyHandler) {
 		this.keyHandler = keyHandler;
 	}
 	
 	public void run() {
-		//Key key = new Key("key" + count++);
 		Key key = new Key("key");
+		//Key key = new Key("key");
 		keyHandler.handle(key);
 	}
 }

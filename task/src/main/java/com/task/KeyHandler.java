@@ -4,8 +4,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 
+ * @author zhenya
+ *
+ */
 public class KeyHandler {
-	private ExternalSystem externalSystem = new ExternalSystem();
+	protected ExternalSystem externalSystem = new ExternalSystem();
 	private Map<Key, Thread> safeThreadMap = Collections.synchronizedMap(new HashMap<Key, Thread>());
 	private Object lock = new Object();
 

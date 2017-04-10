@@ -1,5 +1,10 @@
 package com.task;
 
+/**
+ * 
+ * @author zhenya
+ *
+ */
 public class Key {
 	private String data;
 	

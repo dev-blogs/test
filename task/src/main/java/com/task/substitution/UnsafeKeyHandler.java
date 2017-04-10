@@ -3,6 +3,11 @@ package com.task.substitution;
 import com.task.Key;
 import com.task.KeyHandler;
 
+/**
+ * 
+ * @author zhenya
+ *
+ */
 public class UnsafeKeyHandler extends KeyHandler {
 
 	@Override
