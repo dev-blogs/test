@@ -50,7 +50,7 @@ public class AppTest {
 	
 	/**
 	 * test different keys for KeyHanler
-	 * @result duplicate keys should arrange in right order
+	 * @result duplicate keys should be arranged in right order
 	 */
 	@Test
 	public void testDifferentKeysForKeyHandler() {
