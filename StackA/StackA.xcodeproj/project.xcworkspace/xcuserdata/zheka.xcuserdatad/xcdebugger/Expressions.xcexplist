@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "QueueX&lt;int&gt;::insert(int):queuex.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "rear">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QueueX&lt;int&gt;::isFull():queuex.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "front">
+            </PersistentString>
+            <PersistentString
+               value = "rear">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QueueX&lt;int&gt;::isEmpty():queuex.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "rear + 1">
+            </PersistentString>
+            <PersistentString
+               value = "front + size - 1">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PriorityQ&lt;int&gt;::insert(int):priorityq.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "front">
+            </PersistentString>
+            <PersistentString
+               value = "a[i]">
+            </PersistentString>
+            <PersistentString
+               value = "a[i - 1]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StackX&lt;char&gt;::peek():stackx.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "a[index]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "analize(char*):main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "line[i]">
+            </PersistentString>
+            <PersistentString
+               value = "stack.peek()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InToPost::handleOperator(char):intopost.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "stack">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InToPost::display():intopost.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "output">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InToPost::doTrans():intopost.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "stack">
+            </PersistentString>
+            <PersistentString
+               value = "output">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PriorityQ&lt;int&gt;::remove():priorityq.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "front">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
