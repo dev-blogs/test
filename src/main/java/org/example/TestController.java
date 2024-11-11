@@ -14,21 +14,20 @@ public class TestController {
 
     @GetMapping("/test")
     public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        Enumeration networkInterfaces = null;
         try {
-            networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            Enumeration networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            StringBuilder builder = new StringBuilder();
+            while(networkInterfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = (NetworkInterface) networkInterfaces.nextElement();
+                Enumeration inetAddresses = networkInterface.getInetAddresses();
+                while (inetAddresses.hasMoreElements()) {
+                    InetAddress inetAddress = (InetAddress) inetAddresses.nextElement();
+                    builder.append(inetAddress.getHostAddress() + "</br>");
+                }
+            }
+            return "Test message. IP addresses:</br>" + builder;
         } catch (SocketException ex) {
             throw new RuntimeException(ex);
         }
-        StringBuilder builder = new StringBuilder();
-        while(networkInterfaces.hasMoreElements()) {
-            NetworkInterface networkInterface = (NetworkInterface) networkInterfaces.nextElement();
-            Enumeration inetAddresses = networkInterface.getInetAddresses();
-            while (inetAddresses.hasMoreElements()) {
-                InetAddress inetAddress = (InetAddress) inetAddresses.nextElement();
-                builder.append(inetAddress.getHostAddress() + "</br>");
-            }
-        }
-        return "Test message. IP addresses:</br> " + builder;
     }
 }
