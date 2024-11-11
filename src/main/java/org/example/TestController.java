@@ -1,13 +1,10 @@
 package org.example;
 
-import org.springframework.web.bind.annotation.*;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Stream;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TestController {
