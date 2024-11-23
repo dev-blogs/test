@@ -23,7 +23,7 @@ public class TestController {
                 Enumeration inetAddresses = networkInterface.getInetAddresses();
                 while (inetAddresses.hasMoreElements()) {
                     InetAddress inetAddress = (InetAddress) inetAddresses.nextElement();
-                    logger.info("IP address: {}", inetAddress);
+                    logger.info("IP address: {}", inetAddress.getHostAddress());
                     builder.append(inetAddress.getHostAddress() + "</br>");
                 }
             }
