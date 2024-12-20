@@ -27,7 +27,7 @@ public class TestController {
                     builder.append(inetAddress.getHostAddress() + "</br>");
                 }
             }
-            return "Test message. IP addresses:</br>" + builder + "</br>This text was added after configure oc. Version 2";
+            return "Test message. IP addresses:</br>" + builder + "</br>This text was added after configure oc. Version 3";
         } catch (SocketException ex) {
             throw new RuntimeException(ex);
         }
