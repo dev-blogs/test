@@ -19,42 +19,41 @@ pipeline {
 	}
 
 	stages {
-        stage('Checkout') {
-            steps {
-                container('java-container') {
-                    sh 'echo "Hello from custom container!"'
-                    sh 'printenv CUSTOM_ENV_VAR'
-                    sh 'git clone https://github.com/dev-blogs/test.git'
-                }
-            }
-        }
+		stage('Checkout') {
+			steps {
+				container('java-container') {
+					sh 'echo "Hello from custom container!"'
+					sh 'printenv CUSTOM_ENV_VAR'
+					sh 'git clone https://github.com/dev-blogs/test.git'
+				}
+			}
+		}
 
-        stage('Build') {
-            steps {
-                container('java-container') {
-                    dir ('test') {
-                        sh "mvn clean install"
+		stage('Build') {
+			steps {
+				container('java-container') {
+					dir ('test') {
+						sh "mvn clean install"
 						build_image()
-
-                    }
-                }
-            }
-        }
+					}
+				}
+			}
+		}
 
 		stage('Deploy') {
 			steps {
-                container('java-container') {
-                    dir ('test') {
-                        deploy_image()
-                    }
-                }
+				container('java-container') {
+					dir ('test') {
+						deploy_image()
+					}
+				}
 			}
 		}
 
 		stage('Check') {
 			steps {
 				container('java-container') {
-					dir ('test/target') {
+				    dir ('test/target') {
 						sh "ls -la"
 					}
 				}
@@ -64,7 +63,7 @@ pipeline {
 }
 
 def build_image() {
-	sh "docker build -t $SERVICE_NAME ."
+	sh 'docker build -t ${SERVICE_NAME} .'
 }
 
 def deploy_image() {
@@ -98,5 +97,5 @@ def deploy_image() {
 		fi
 
 		echo "Deployment complete"
-   '''
+	'''
 }
