@@ -9,6 +9,7 @@ pipeline {
 
 	environment {
 		CONFIG="/tmp/config"
+		DOCKER_HUB_LOGIN=devblogs1
 		SERVICE_NAME="test-app"
 		DOCKER_IMAGE="devblogs1/test-app"
 		NAMESPACE="image-uploader"
@@ -53,7 +54,7 @@ pipeline {
 		stage('Check') {
 		    steps {
                 container('java-container') {
-                    dir('test/target') {
+                    dir ('test/target') {
                         sh "ls -la"
                     }
                 }
@@ -63,7 +64,7 @@ pipeline {
 }
 
 def build_image() {
-	sh 'docker build -t ${SERVICE_NAME} .'
+	sh "docker build -t ${SERVICE_NAME} ."
 }
 
 def deploy_image() {
@@ -71,10 +72,10 @@ def deploy_image() {
 		export DOCKER_CONFIG=/tmp/docker-config
 
 		/usr/bin/oc login --insecure-skip-tls-verify --config=${CONFIG} -u ${OS_USER} -p ${OS_PASSWORD} ${OS_HOST}
-		/usr/bin/oc get secret ${DOCKER_HUB_PASSWORD_SECRET} --config=${CONFIG} -n ${NAMESPACE} -o go-template --template="{{.data.password}}" | base64 -d | docker login -u devblogs1 --password-stdin
+		/usr/bin/oc get secret ${DOCKER_HUB_PASSWORD_SECRET} --config=${CONFIG} -n ${NAMESPACE} -o go-template --template="{{.data.password}}" | base64 -d | docker login -u ${DOCKER_HUB_LOGIN} --password-stdin
 
-		docker tag test-app devblogs1/test-app
-		docker push devblogs1/test-app
+		docker tag ${SERVICE_NAME} devblogs1/${SERVICE_NAME}
+		docker push ${DOCKER_HUB_LOGIN}/${SERVICE_NAME}
 
 		# Check if the service exists
 		if /usr/bin/oc get service --config=${CONFIG} ${SERVICE_NAME} -n ${NAMESPACE} > /dev/null 2>&1; then
