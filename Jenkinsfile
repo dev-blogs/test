@@ -51,14 +51,14 @@ pipeline {
 		}
 
 		stage('Check') {
-			steps {
-				container('java-container') {
-				    dir ('test/target') {
-						sh "ls -la"
-					}
-				}
-			}
-		}
+		    steps {
+                container('java-container') {
+                    dir('test/target') {
+                        sh "ls -la"
+                    }
+                }
+            }
+        }
     }
 }
 
