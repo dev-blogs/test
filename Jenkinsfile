@@ -54,8 +54,8 @@ pipeline {
 		stage('Check') {
 		    steps {
                 container('java-container') {
-                    dir ('test/target') {
-                        sh 'pwd'
+                    dir ('test') {
+                        sh 'ls -la'
                     }
                 }
             }
