@@ -28,3 +28,6 @@ spec:
           value: 'custom-value'
         - name: DOCKER_HOST
           value: "tcp://192.168.1.21:2375"
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
