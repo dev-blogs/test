@@ -9,7 +9,7 @@ pipeline {
 
 	environment {
 		CONFIG="/tmp/config"
-		DOCKER_HUB_LOGIN=devblogs1
+		DOCKER_HUB_LOGIN="devblogs1"
 		SERVICE_NAME="test-app"
 		DOCKER_IMAGE="devblogs1/test-app"
 		NAMESPACE="image-uploader"
