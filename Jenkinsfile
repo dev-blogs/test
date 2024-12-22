@@ -64,7 +64,7 @@ pipeline {
 }
 
 def build_image() {
-	sh "docker build -t ${SERVICE_NAME} ."
+	sh "docker build -t $SERVICE_NAME ."
 }
 
 def deploy_image() {
