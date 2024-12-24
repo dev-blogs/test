@@ -31,3 +31,10 @@ spec:
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
+      volumeMounts:
+      - mountPath: /usr/.m2/repository
+        name: mvn-data
+  volumes:
+  - name: mvn-data
+    persistentVolumeClaim:
+      claimName: mvn-pvc
