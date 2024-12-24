@@ -55,7 +55,7 @@ pipeline {
 		    steps {
                 container('java-container') {
                     dir ('test/target') {
-                        sh 'ls -la'
+                        sh "ls -la"
                     }
                 }
             }
