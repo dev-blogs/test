@@ -34,7 +34,7 @@ pipeline {
 			steps {
 				container('java-container') {
 					dir ('test') {
-						sh "mvn clean install"
+						sh "mvn -Dmaven.repo.local=/usr/.m2 clean install"
 						build_image()
 					}
 				}
