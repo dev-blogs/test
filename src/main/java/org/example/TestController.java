@@ -3,6 +3,7 @@ package org.example;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.Date;
 import java.util.Enumeration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class TestController {
     public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         try {
             logger.info("test log message");
+            logger.info("Current time is: {}", new Date());
             Enumeration networkInterfaces = NetworkInterface.getNetworkInterfaces();
             StringBuilder builder = new StringBuilder();
             while(networkInterfaces.hasMoreElements()) {
