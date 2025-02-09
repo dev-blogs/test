@@ -69,15 +69,15 @@ def build_image() {
 
 def deploy_image() {
 	sh '''
-		export DOCKER_CONFIG=/tmp/docker-config
+        export DOCKER_CONFIG=/tmp/docker-config
 
-		/usr/bin/oc login --insecure-skip-tls-verify --config=${CONFIG} -u ${OS_USER} -p ${OS_PASSWORD} ${OS_HOST}
-		/usr/bin/oc get secret ${DOCKER_HUB_PASSWORD_SECRET} --config=${CONFIG} -n ${NAMESPACE} -o go-template --template="{{.data.password}}" | base64 -d | docker login -u ${DOCKER_HUB_LOGIN} --password-stdin
+        /usr/bin/oc login --insecure-skip-tls-verify --config=${CONFIG} -u ${OS_USER} -p ${OS_PASSWORD} ${OS_HOST}
+        /usr/bin/oc get secret ${DOCKER_HUB_PASSWORD_SECRET} --config=${CONFIG} -n ${NAMESPACE} -o go-template --template="{{.data.password}}" | base64 -d | docker login -u ${DOCKER_HUB_LOGIN} --password-stdin
 
-		docker tag ${SERVICE_NAME} ${DOCKER_HUB_LOGIN}/${SERVICE_NAME}
-		docker push ${DOCKER_HUB_LOGIN}/${SERVICE_NAME}
+        docker tag ${SERVICE_NAME} ${DOCKER_HUB_LOGIN}/${SERVICE_NAME}
+        docker push ${DOCKER_HUB_LOGIN}/${SERVICE_NAME}
 
-		# Check if the service exists
+        # Check if the service exists
         if /usr/bin/oc get service --config=${CONFIG} ${SERVICE_NAME} -n ${NAMESPACE} > /dev/null 2>&1; then
             echo "Service ${SERVICE_NAME} exists. Replacing it with the new service."
             /usr/bin/oc delete service ${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG}
@@ -109,14 +109,14 @@ def deploy_image() {
             echo "Imagestream ${SERVICE_NAME} does not exist. New imagestream will be created."
         fi
 
-		# Deploy the application
-		/usr/bin/oc new-app --docker-image=${DOCKER_IMAGE} --name=${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG}
+        # Deploy the application
+        /usr/bin/oc new-app --docker-image=${DOCKER_IMAGE} --name=${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG}
 
-		# Expose the service (if needed)
-		if ! /usr/bin/oc get route ${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG} > /dev/null 2>&1; then
-			/usr/bin/oc expose service ${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG}
-		fi
+        # Expose the service (if needed)
+        if ! /usr/bin/oc get route ${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG} > /dev/null 2>&1; then
+            /usr/bin/oc expose service ${SERVICE_NAME} -n ${NAMESPACE} --config=${CONFIG}
+        fi
 
-		echo "Deployment complete"
+        echo "Deployment complete"
 	'''
 }
