@@ -1,3 +1,8 @@
+# 1. Build project
 mvn clean install
+
+# 2. Setup SPRING_APPLICATION_JSON env var
 export SPRING_APPLICATION_JSON="{\"src\": {\"path\": \"/usr/bin/app\"}}"
+
+# 3. Run application
 java -jar target/standalone-test-app-0.0.1-SNAPSHOT.jar
