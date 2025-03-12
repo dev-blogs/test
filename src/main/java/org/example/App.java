@@ -10,6 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 @SpringBootApplication
 @EnableConfigurationProperties(AppConfig.class)
 public class App implements CommandLineRunner {
@@ -26,9 +30,10 @@ public class App implements CommandLineRunner {
     }
 
     @Override
-    public void run(String [] args) {
+    public void run(String [] args) throws IOException {
         logger.info("test");
         String path = appConfig.getPath();
         logger.info("path: {}", path);
+        Files.list(Paths.get(path)).forEach(p -> logger.info("file: " + p));
     }
 }
