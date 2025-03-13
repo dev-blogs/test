@@ -31,7 +31,6 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String [] args) throws IOException {
-        logger.info("test");
         String path = appConfig.getPath();
         logger.info("path: {}", path);
         Files.list(Paths.get(path)).forEach(p -> logger.info("file: " + p));
