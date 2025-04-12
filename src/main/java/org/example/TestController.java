@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TestController {
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
-    private static int counter = 0;
+    private static int counter = 1;
 
     @GetMapping("/test")
     public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -38,6 +38,6 @@ public class TestController {
     }
 
     private synchronized int incAndGetCounter() {
-        return ++counter;
+        return counter++;
     }
 }
