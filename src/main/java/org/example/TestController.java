@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TestController {
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
-    private static int counter = 1;
+    private static int counter = 0;
 
     @GetMapping("/test")
     public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         try {
-            logger.info("Call number: {}", counter++);
+            logger.info("Call number: {}", incAndGetCounter());
             logger.info("test log message");
             logger.info("Current time is: {}", new Date());
             Enumeration networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -35,5 +35,9 @@ public class TestController {
         } catch (SocketException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private synchronized int incAndGetCounter() {
+        return ++counter;
     }
 }
